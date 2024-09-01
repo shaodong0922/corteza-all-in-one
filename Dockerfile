@@ -6,7 +6,11 @@ ENV VERSION=2019.12.0
 WORKDIR /app
 
 ##### CORREDOR
-RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.11/main/ nodejs=12.14.0-r0
+RUN apk add --no-cache curl && \
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash && \
+    . ~/.nvm/nvm.sh && \
+    nvm install 12.14.0 && \
+    nvm use 12.14.0
 RUN apk add --update --no-cache npm yarn ca-certificates
 
 COPY --from=corredor /corredor .
